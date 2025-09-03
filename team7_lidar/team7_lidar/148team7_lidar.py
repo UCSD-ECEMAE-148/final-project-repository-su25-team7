@@ -162,7 +162,7 @@ class LidarObjectDetector(Node):
                         self.state = 'MANEUVERING'
                         
                         #set timer for node to pause taking new data for 5 seconds
-                        self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                        self.timer = self.create_timer(2.0, self.resume_searching_callback)
                         
                     elif obj[2] > FORWARD_RAD:  # Object is to the left of forward
                         # Object is in our lane, must change lanes
@@ -173,7 +173,7 @@ class LidarObjectDetector(Node):
                         self.state = 'MANEUVERING'
                         
                         #set timer for node to pause taking new data for 5 seconds
-                        self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                        self.timer = self.create_timer(2.0, self.resume_searching_callback)
                         
                     
                     else:  # Object is to the right of forward (in the right lane)
@@ -189,7 +189,7 @@ class LidarObjectDetector(Node):
                     self.state = 'MANEUVERING'
                     
                     #set timer for node to pause taking new data for 5 seconds
-                    self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                    self.timer = self.create_timer(2.0, self.resume_searching_callback)
                     
                 else:
                     self.publisher_.publish(String(data="U_TURN_RIGHT"))
@@ -197,7 +197,7 @@ class LidarObjectDetector(Node):
                     self.state = 'MANEUVERING'
                     
                     #set timer for node to pause taking new data for 5 seconds
-                    self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                    self.timer = self.create_timer(2.0, self.resume_searching_callback)
 
         # State 3: MANEUVERING, ignore new LiDAR data until the maneuver is complete
         elif self.state == 'MANEUVERING':
