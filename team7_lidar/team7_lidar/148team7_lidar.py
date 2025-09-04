@@ -79,6 +79,8 @@ class LidarObjectDetector(Node):
             
             right_points = []
             left_points = []
+            right_count = 0
+            left_count = 0
             if self.lane: #if currently in right lane
                 angle_min = RIGHT_ANGLE_MIN_FILTER
                 angle_max = RIGHT_ANGLE_MAX_FILTER
@@ -92,11 +94,16 @@ class LidarObjectDetector(Node):
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])  
+                            left_count += 1
                             
                         elif angle_middle_right <= angle <= angle_max and 2.3 <= r <= 2.5:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y]) 
+                            right_count += 1
+                            
+                self.get_logger().info("{left_count} points in left tub.")
+                self.get_logger().info("{right_count} points in right tub.")
                             
                 if not left_points:     #if left lane is empty
                     # Object is directly in front, must change lanes
