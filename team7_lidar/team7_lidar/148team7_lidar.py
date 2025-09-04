@@ -213,21 +213,24 @@ class LidarObjectDetector(Node):
             start_time = self.get_clock().now()
             end_time = self.get_clock().now()
             time_difference = end_time - start_time
+            seconds_diff = time_difference.nanoseconds / 1e9
             
-            while(time_difference < 2):     #activate for 2 seconds 
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = -1
-                # Publish the message.
+                # Publish the message
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
                 self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
 
             start_time = self.get_clock().now()
-            while(time_difference < 2):     #activate for 2 seconds 
+            seconds_diff = 0
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = 1
@@ -238,13 +241,15 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
         
         elif self.state == 'CHANGE_LANE_RIGHT':
             start_time = self.get_clock().now()
             end_time = self.get_clock().now()
             time_difference = end_time - start_time
+            seconds_diff = time_difference.nanoseconds / 1e9
             
-            while(time_difference < 2):     #activate for 2 seconds 
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = 1
@@ -255,9 +260,11 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
 
             start_time = self.get_clock().now()
-            while(time_difference < 2):     #activate for 2 seconds 
+            seconds_diff = 0
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = -1
@@ -268,6 +275,7 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
                 
             
                 
@@ -275,8 +283,9 @@ class LidarObjectDetector(Node):
             start_time = self.get_clock().now()
             end_time = self.get_clock().now()
             time_difference = end_time - start_time
+            seconds_diff = time_difference.nanoseconds / 1e9
             
-            while(time_difference < 5):     #activate for 2 seconds 
+            while(seconds_diff < 5):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 0
                 vesc.angular.z = 0
@@ -287,13 +296,15 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
         
         elif self.state == 'U_TURN_LEFT':
             start_time = self.get_clock().now()
             end_time = self.get_clock().now()
             time_difference = end_time - start_time
+            seconds_diff = time_difference.nanoseconds / 1e9
             
-            while(time_difference < 2):     #activate for 2 seconds (offset to the right for smooth turn)
+            while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = 1
@@ -304,9 +315,11 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
 
             start_time = self.get_clock().now()
-            while(time_difference < 6):     #activate for 6 seconds (make the big turn left)
+            seconds_diff = 0
+            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = -1
@@ -317,9 +330,11 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
         
             start_time = self.get_clock().now()
-            while(time_difference < 2):     #activate for 6 seconds (turn right to straighten the robot)
+            seconds_diff = 0
+            while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = 1
@@ -330,14 +345,15 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
-                
+                seconds_diff = time_difference.nanoseconds / 1e9
                         
         elif self.state == 'U_TURN_RIGHT':
             start_time = self.get_clock().now()
             end_time = self.get_clock().now()
             time_difference = end_time - start_time
-            
-            while(time_difference < 2):     #activate for 2 seconds (offset to the right for smooth turn)
+            seconds_diff = time_difference.nanoseconds / 1e9     
+                  
+            while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = -1
@@ -348,9 +364,11 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
 
             start_time = self.get_clock().now()
-            while(time_difference < 6):     #activate for 6 seconds (make the big turn left)
+            seconds_diff = 0
+            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = 1
@@ -361,9 +379,11 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
         
             start_time = self.get_clock().now()
-            while(time_difference < 2):     #activate for 6 seconds (turn right to straighten the robot)
+            seconds_diff = 0
+            while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1
                 vesc.angular.z = -1
@@ -374,6 +394,7 @@ class LidarObjectDetector(Node):
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
 
 
 def main():
