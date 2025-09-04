@@ -223,7 +223,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = -0.8
+                self.twist_cmd.angular.z = -0.6
                 # Publish the message
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -259,7 +259,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.8
+                self.twist_cmd.angular.z = 0.6
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
