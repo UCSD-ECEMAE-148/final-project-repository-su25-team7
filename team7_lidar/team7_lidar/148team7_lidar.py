@@ -36,11 +36,8 @@ class LidarObjectDetector(Node):
         self.state = 'SEARCHING'
 
     def lidar_callback(self, msg: LaserScan):
-        self.get_logger().info("Starting lidar_callback.")
         
         vesc = Twist()
-        
-        self.get_logger().info("Initializing vesc Twist.")
         
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup
@@ -64,7 +61,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
                         if RIGHT_ANGLE_MIN_FILTER <= angle <= RIGHT_ANGLE_MAX_FILTER:
-                            if 2.0 <= r <= 2.2:
+                            if r <= 2.2:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -77,7 +74,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
                         if LEFT_ANGLE_MIN_FILTER <= angle <= LEFT_ANGLE_MAX_FILTER:
-                            if 2.0 <= r <= 2.2:
+                            if r <= 2.2:
                                 self.state = 'STOPPING'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
