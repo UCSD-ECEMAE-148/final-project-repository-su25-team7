@@ -39,10 +39,10 @@ class LidarObjectDetector(Node):
     def lidar_callback(self, msg: LaserScan):
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup``
-        RIGHT_ANGLE_MIN_FILTER = (83.0 / 180.0) * np.pi  # 83 degrees
-        RIGHT_ANGLE_MAX_FILTER = (110.0 / 180.0) * np.pi  # 110 degrees
-        LEFT_ANGLE_MIN_FILTER = (70.0 / 180.0) * np.pi  # 70 degrees
-        LEFT_ANGLE_MAX_FILTER = (97.0 / 180.0) * np.pi  # 97 degrees
+        RIGHT_ANGLE_MIN_FILTER = (128.0 / 180.0) * np.pi  # 83 + 45 degrees
+        RIGHT_ANGLE_MAX_FILTER = (155.0 / 180.0) * np.pi  # 110 + 45 degrees
+        LEFT_ANGLE_MIN_FILTER = (115.0 / 180.0) * np.pi  # 70 + 45 degrees
+        LEFT_ANGLE_MAX_FILTER = (142.0 / 180.0) * np.pi  # 97 + 45 degrees
         
         # State 1: SEARCHING for an object
         if self.state == 'SEARCHING':
