@@ -39,10 +39,10 @@ class LidarObjectDetector(Node):
     def lidar_callback(self, msg: LaserScan):
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup``
-        LEFT_ANGLE_MIN_FILTER = (90.0 / 180.0) * np.pi  # 83 degrees -> 90 degrees
-        LEFT_ANGLE_MAX_FILTER = (92.0 / 180.0) * np.pi  # 110 degrees -> 104 degrees
-        RIGHT_ANGLE_MIN_FILTER = (88.0 / 180.0) * np.pi  # 70 degrees -> 76 degrees
-        RIGHT_ANGLE_MAX_FILTER = (90.0 / 180.0) * np.pi  # 97 degrees -> 90 degrees
+        #LEFT_ANGLE_MIN_FILTER = (90.0 / 180.0) * np.pi  # 83 degrees -> 90 degrees
+        #LEFT_ANGLE_MAX_FILTER = (92.0 / 180.0) * np.pi  # 110 degrees -> 104 degrees
+        #RIGHT_ANGLE_MIN_FILTER = (88.0 / 180.0) * np.pi  # 70 degrees -> 76 degrees
+        #RIGHT_ANGLE_MAX_FILTER = (90.0 / 180.0) * np.pi  # 97 degrees -> 90 degrees
         
         # State 1: SEARCHING for an object
         if self.state == 'SEARCHING':
@@ -52,8 +52,8 @@ class LidarObjectDetector(Node):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
-                        if RIGHT_ANGLE_MIN_FILTER <= angle <= RIGHT_ANGLE_MAX_FILTER:
-                            if 2.3 <= r <= 2.5:
+                        if 0 <= angle <= 180:
+                            if 1.5 <= r <= 2:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -65,7 +65,7 @@ class LidarObjectDetector(Node):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
-                        if LEFT_ANGLE_MIN_FILTER <= angle <= LEFT_ANGLE_MAX_FILTER:
+                        if 0 <= angle <= 180:
                             if 2.3 <= r <= 2.5:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
@@ -82,20 +82,20 @@ class LidarObjectDetector(Node):
             right_count = 0
             left_count = 0
             if self.lane: #if currently in right lane
-                angle_min = RIGHT_ANGLE_MIN_FILTER
-                angle_max = RIGHT_ANGLE_MAX_FILTER
-                angle_middle = (RIGHT_ANGLE_MAX_FILTER + RIGHT_ANGLE_MIN_FILTER) / 2
+                #angle_min = RIGHT_ANGLE_MIN_FILTER
+                #angle_max = RIGHT_ANGLE_MAX_FILTER
+                #angle_middle = (RIGHT_ANGLE_MAX_FILTER + RIGHT_ANGLE_MIN_FILTER) / 2
                 
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if angle_min <= angle <= angle_middle and 2.3 <= r <= 2.5:
+                        if 0 <= angle <= 80 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])  
                             left_count += 1
                             
-                        elif angle_middle <= angle <= angle_max and 2.3 <= r <= 2.5:
+                        elif 90 <= angle <= 180 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y]) 
@@ -134,18 +134,18 @@ class LidarObjectDetector(Node):
                               
                     
             else: #if currently in left lane
-                angle_min = LEFT_ANGLE_MIN_FILTER
-                angle_max = LEFT_ANGLE_MAX_FILTER
-                angle_middle = (LEFT_ANGLE_MAX_FILTER + LEFT_ANGLE_MIN_FILTER) / 2
+                #angle_min = LEFT_ANGLE_MIN_FILTER
+                #angle_max = LEFT_ANGLE_MAX_FILTER
+                #angle_middle = (LEFT_ANGLE_MAX_FILTER + LEFT_ANGLE_MIN_FILTER) / 2
                 
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if angle_min <= angle <= angle_middle and 2.3 <= r <= 2.5:
+                        if 0 <= angle <= 90 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])
-                        if angle_middle <= angle <= angle_max and 2.3 <= r <= 2.5:
+                        if 100 <= angle <= 180 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y])
