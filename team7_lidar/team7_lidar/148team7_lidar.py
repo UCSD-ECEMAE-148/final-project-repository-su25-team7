@@ -242,6 +242,8 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
+                
+            self.state = 'SEARCHING'
         
         elif self.state == 'CHANGE_LANE_RIGHT':
             start_time = self.get_clock().now()
@@ -277,7 +279,7 @@ class LidarObjectDetector(Node):
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
                 
-            
+            self.state = 'SEARCHING'
                 
         elif self.state == 'STOP':
             start_time = self.get_clock().now()
@@ -297,6 +299,8 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
+                
+            self.state = 'STOPPING'
         
         elif self.state == 'U_TURN_LEFT':
             start_time = self.get_clock().now()
@@ -346,6 +350,8 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
+                
+            self.state = 'SEARCHING'
                         
         elif self.state == 'U_TURN_RIGHT':
             start_time = self.get_clock().now()
@@ -395,6 +401,8 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
+                
+            self.state = 'SEARCHING'
 
 
 def main():
