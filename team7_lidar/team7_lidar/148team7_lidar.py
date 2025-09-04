@@ -64,7 +64,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
                         if RIGHT_ANGLE_MIN_FILTER <= angle <= RIGHT_ANGLE_MAX_FILTER:
-                            if r <= 2.2:
+                            if 2 <= r <= 2.2:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -77,7 +77,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
                         if LEFT_ANGLE_MIN_FILTER <= angle <= LEFT_ANGLE_MAX_FILTER:
-                            if r <= 2.2:
+                            if 2 <= r <= 2.2:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -99,7 +99,7 @@ class LidarObjectDetector(Node):
             for i, r in enumerate(msg.ranges):
                 if np.isfinite(r):
                     angle = msg.angle_min + i * msg.angle_increment
-                    if angle_min <= angle <= angle_max and r<=2.2:
+                    if angle_min <= angle <= angle_max and 2 <= r <= 2.2:
                         x = r * np.cos(angle)
                         y = r * np.sin(angle)
                         points.append([x, y])
