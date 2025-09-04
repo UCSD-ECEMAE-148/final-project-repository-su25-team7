@@ -111,7 +111,7 @@ class LidarObjectDetector(Node):
                 return
 
             points = np.array(points)
-            clustering = DBSCAN(eps=0.02, min_samples=1).fit(points)
+            clustering = DBSCAN(eps=0.04, min_samples=1).fit(points)
             labels = clustering.labels_
 
             objects = []
