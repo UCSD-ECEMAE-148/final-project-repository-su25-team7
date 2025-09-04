@@ -39,13 +39,18 @@ class LidarObjectDetector(Node):
     def lidar_callback(self, msg: LaserScan):
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup
-        LEFT_ANGLE_MIN_FILTER = (260.0 / 180.0) * np.pi  # 260 degrees
-        LEFT_ANGLE_MAX_FILTER = (295.0 / 180.0) * np.pi  # 295 degrees
-        RIGHT_ANGLE_MIN_FILTER = (245.0 / 180.0) * np.pi  # 245 degrees
-        RIGHT_ANGLE_MAX_FILTER = (280.0 / 180.0) * np.pi  # 280 degrees
+        # LEFT_ANGLE_MIN_FILTER = (260.0 / 180.0) * np.pi  # 260 degrees
+        # LEFT_ANGLE_MAX_FILTER = (295.0 / 180.0) * np.pi  # 295 degrees
+        # RIGHT_ANGLE_MIN_FILTER = (245.0 / 180.0) * np.pi  # 245 degrees
+        # RIGHT_ANGLE_MAX_FILTER = (280.0 / 180.0) * np.pi  # 280 degrees
+        LEFT_ANGLE_MIN_FILTER = (80.0 / 180.0) * np.pi  # 80 degrees
+        LEFT_ANGLE_MAX_FILTER = (115.0 / 180.0) * np.pi  # 115 degrees
+        RIGHT_ANGLE_MIN_FILTER = (65.0 / 180.0) * np.pi  # 65 degrees
+        RIGHT_ANGLE_MAX_FILTER = (100.0 / 180.0) * np.pi  # 100 degrees
         
         # The new forward angle is 270 degrees, which is -pi/2 in standard radians
-        FORWARD_RAD = (270.0 / 180.0) * np.pi
+        #FORWARD_RAD = (270.0 / 180.0) * np.pi
+        FORWARD_RAD = (90.0 / 180.0) * np.pi
         
         # Define an angular tolerance for objects considered "straight ahead"
         FORWARD_TOLERANCE = (5.0 / 180.0) * np.pi  # 5 degrees tolerance
