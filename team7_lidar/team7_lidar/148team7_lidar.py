@@ -52,7 +52,7 @@ class LidarObjectDetector(Node):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
-                        if 0 <= angle <= 180:
+                        if 180 <= angle <= 360:
                             if 1.5 <= r <= 2:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
@@ -65,7 +65,7 @@ class LidarObjectDetector(Node):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
-                        if 0 <= angle <= 180:
+                        if 180 <= angle <= 360:
                             if 2.3 <= r <= 2.5:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
@@ -89,13 +89,13 @@ class LidarObjectDetector(Node):
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if 0 <= angle <= 80 and 1.5 <= r <= 2:
+                        if 180 <= angle <= 260 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])  
                             left_count += 1
                             
-                        elif 90 <= angle <= 180 and 1.5 <= r <= 2:
+                        elif 270 <= angle <= 360 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y]) 
@@ -141,11 +141,11 @@ class LidarObjectDetector(Node):
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if 0 <= angle <= 90 and 1.5 <= r <= 2:
+                        if 180 <= angle <= 270 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])
-                        if 100 <= angle <= 180 and 1.5 <= r <= 2:
+                        if 280 <= angle <= 360 and 1.5 <= r <= 2:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y])
