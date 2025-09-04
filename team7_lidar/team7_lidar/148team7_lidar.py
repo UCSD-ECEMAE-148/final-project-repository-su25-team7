@@ -36,6 +36,7 @@ class LidarObjectDetector(Node):
         self.state = 'SEARCHING'
 
     def lidar_callback(self, msg: LaserScan):
+        self.get_logger().info("Starting lidar_callback.")
         
         vesc = Twist()
         real_time = Time()
