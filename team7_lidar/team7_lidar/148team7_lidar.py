@@ -18,11 +18,12 @@ class LidarObjectDetector(Node):
             self.lidar_callback,
             10)
 
-        self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.twist_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
         
         self.get_logger().info("Lidar Object Detector Node Started")
 
         self.lane = True  # if True -> RIGHT lane, if false -> LEFT lane. Default = RIGHT lane
+        self.twist_cmd = Twist()
 
         # Define a state machine for the robot's behavior
         # States: 
@@ -36,9 +37,6 @@ class LidarObjectDetector(Node):
         self.state = 'SEARCHING'
 
     def lidar_callback(self, msg: LaserScan):
-        
-        vesc = Twist()
-        
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup
         LEFT_ANGLE_MIN_FILTER = (260.0 / 180.0) * np.pi  # 260 degrees
@@ -217,12 +215,12 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = -1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -232,12 +230,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = 1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -253,12 +251,12 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = 1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -268,12 +266,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = -1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -289,12 +287,12 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 5):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 0.0
-                vesc.angular.z = 0.0
+                self.twist_cmd.linear.x = 0.0
+                self.twist_cmd.angular.z = 0.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -310,12 +308,12 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = 1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -325,12 +323,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = -1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -340,12 +338,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = 1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -361,12 +359,12 @@ class LidarObjectDetector(Node):
                   
             while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = -1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -376,12 +374,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = 1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
             
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
@@ -391,13 +389,12 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1.0
-                vesc.angular.z = -1.0
+                self.twist_cmd.linear.x = 1.0
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message.
-                self.publisher_.publish(vesc)
+                self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
-                self.get_logger().info(f'Publishing: Linear.x="{vesc.linear.x:.2f}" Angular.z="{vesc.angular.z:.2f}"')
-            
+                self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
