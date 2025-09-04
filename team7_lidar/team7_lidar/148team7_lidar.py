@@ -111,7 +111,7 @@ class LidarObjectDetector(Node):
                 return
 
             points = np.array(points)
-            clustering = DBSCAN(eps=0.035, min_samples=2).fit(points)
+            clustering = DBSCAN(eps=0.035, min_samples=10).fit(points)
             labels = clustering.labels_
 
             objects = []
@@ -128,6 +128,8 @@ class LidarObjectDetector(Node):
                     angle += 2 * np.pi
                 
                 objects.append((cluster_id, distance, angle))
+                self.get_logger().info(f"object detected at {angle:.1f}°, at {distance:.1f} meters away.")
+                
 
             if not objects:
                 # No objects confirmed, resume search.
