@@ -64,7 +64,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
                         if RIGHT_ANGLE_MIN_FILTER <= angle <= RIGHT_ANGLE_MAX_FILTER:
-                            if 2.5 <= r <= 2.7:
+                            if 2.2 <= r <= 2.7:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -77,7 +77,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
                         if LEFT_ANGLE_MIN_FILTER <= angle <= LEFT_ANGLE_MAX_FILTER:
-                            if 2.5 <= r <= 2.7:
+                            if 2.2 <= r <= 2.7:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -99,7 +99,7 @@ class LidarObjectDetector(Node):
             for i, r in enumerate(msg.ranges):
                 if np.isfinite(r):
                     angle = msg.angle_min + i * msg.angle_increment
-                    if angle_min <= angle <= angle_max and 2.5 <= r <= 2.7:
+                    if angle_min <= angle <= angle_max and 2.2 <= r <= 2.7:
                         x = r * np.cos(angle)
                         y = r * np.sin(angle)
                         points.append([x, y])
@@ -111,7 +111,7 @@ class LidarObjectDetector(Node):
                 return
 
             points = np.array(points)
-            clustering = DBSCAN(eps=0.035, min_samples=1).fit(points)
+            clustering = DBSCAN(eps=0.035, min_samples=2).fit(points)
             labels = clustering.labels_
 
             objects = []
@@ -220,7 +220,7 @@ class LidarObjectDetector(Node):
             time_difference = end_time - start_time
             seconds_diff = time_difference.nanoseconds / 1e9
             
-            while(seconds_diff < 1):     #activate for 2 seconds 
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -0.3
@@ -233,7 +233,6 @@ class LidarObjectDetector(Node):
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
 
-            '''
             start_time = self.get_clock().now()
             seconds_diff = 0
             while(seconds_diff < 1):     #activate for 2 seconds 
@@ -248,7 +247,7 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
-            '''    
+              
             self.state = 'SEARCHING'
         
         elif self.state == 'CHANGE_LANE_RIGHT':
@@ -270,7 +269,6 @@ class LidarObjectDetector(Node):
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
 
-            '''
             start_time = self.get_clock().now()
             seconds_diff = 0
             while(seconds_diff < 1):     #activate for 2 seconds 
@@ -285,7 +283,7 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
-            '''    
+                
             self.state = 'SEARCHING'
                 
         elif self.state == 'STOP':
@@ -330,7 +328,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 7):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -0.8
@@ -342,13 +340,13 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
-            '''
+                
             start_time = self.get_clock().now()
             seconds_diff = 0
             while(seconds_diff < 1):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.5
+                self.twist_cmd.angular.z = 0.4
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -357,7 +355,7 @@ class LidarObjectDetector(Node):
                 end_time = self.get_clock().now()
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
-            '''       
+    
             self.state = 'SEARCHING'
                         
         elif self.state == 'U_TURN_RIGHT':
@@ -381,10 +379,10 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 7):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 1.0
+                self.twist_cmd.angular.z = 0.9
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -394,13 +392,12 @@ class LidarObjectDetector(Node):
                 time_difference = end_time - start_time
                 seconds_diff = time_difference.nanoseconds / 1e9
         
-        '''
             start_time = self.get_clock().now()
             seconds_diff = 0
             while(seconds_diff < 1):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = -0.5
+                self.twist_cmd.angular.z = -0.2
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -410,7 +407,6 @@ class LidarObjectDetector(Node):
                 seconds_diff = time_difference.nanoseconds / 1e9
                 
             self.state = 'SEARCHING'
-        '''
 
 def main():
     rclpy.init()
