@@ -223,7 +223,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = -0.5
+                self.twist_cmd.angular.z = -0.8
                 # Publish the message
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -259,7 +259,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.5
+                self.twist_cmd.angular.z = 0.8
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -328,10 +328,10 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 3):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = -0.5
+                self.twist_cmd.angular.z = -1.0
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -379,10 +379,10 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 3):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.5
+                self.twist_cmd.angular.z = 1.0
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
