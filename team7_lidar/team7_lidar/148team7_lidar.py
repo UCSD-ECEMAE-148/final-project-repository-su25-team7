@@ -53,7 +53,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the right lane
                         if 180 <= angle <= 360:
-                            if 1.5 <= r <= 2:
+                            if 2.2 <= r <= 2.5:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -66,7 +66,7 @@ class LidarObjectDetector(Node):
                         angle = msg.angle_min + i * msg.angle_increment
                         # Filter by angular window for the left lane
                         if 180 <= angle <= 360:
-                            if 2.3 <= r <= 2.5:
+                            if 2.2 <= r <= 2.5:
                                 self.state = 'STOP'
                                 self.get_logger().info("Obstacle detected, STOPPING robot.")
                                 # Publish a message to stop the robot
@@ -89,13 +89,13 @@ class LidarObjectDetector(Node):
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if 180 <= angle <= 260 and 1.5 <= r <= 2:
+                        if 180 <= angle <= 260 and 2.2 <= r <= 2.5:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])  
                             left_count += 1
                             
-                        elif 270 <= angle <= 360 and 1.5 <= r <= 2:
+                        elif 270 <= angle <= 360 and 2.2 <= r <= 2.5:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y]) 
@@ -104,20 +104,7 @@ class LidarObjectDetector(Node):
                 self.get_logger().info(f"{left_count} points in left tub.")
                 self.get_logger().info(f"{right_count} points in right tub.")
                             
-                if not left_points:     #if left lane is empty
-                    # Object is directly in front, must change lanes
-                    self.get_logger().info("Object in front, switching to LEFT LANE.")
-                    # self.publisher_.publish(String(data="CHANGE_LANE_LEFT"))
-                    self.lane = False
-                    # Transition to MANEUVERING state to prevent re-execution during movement
-                    self.state = 'CHANGE_LANE_LEFT'    
-                    
-                elif not right_points:
-                    # Our path is clear, continue forward (no VESC publishing)
-                    self.get_logger().info("Object is on the other side, continuing FORWARD: right_lane.")
-                    self.state = 'MOVE_FORWARD'      
-                    
-                else: 
+                if left_points and right_points:     #if both tubs are full
                     '''
                     Person Detection Code runs here before U-turn.
                     '''
@@ -130,7 +117,20 @@ class LidarObjectDetector(Node):
                     self.state = 'U_TURN_LEFT'
                     
                     #set timer for node to pause taking new data for 5 seconds
-                    #self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                    #self.timer = self.create_timer(5.0, self.resume_searching_callback)  
+                    
+                elif right_points:
+                    # Object is directly in front, must change lanes
+                    self.get_logger().info("Object in front, switching to LEFT LANE.")
+                    # self.publisher_.publish(String(data="CHANGE_LANE_LEFT"))
+                    self.lane = False
+                    # Transition to MANEUVERING state to prevent re-execution during movement
+                    self.state = 'CHANGE_LANE_LEFT'  
+                    # Our path is clear, continue forward (no VESC publishing) 
+                    
+                else: 
+                    self.get_logger().info("Object is on the other side, continuing FORWARD: right_lane.")
+                    self.state = 'MOVE_FORWARD'     
                               
                     
             else: #if currently in left lane
@@ -141,45 +141,45 @@ class LidarObjectDetector(Node):
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
                         angle = msg.angle_min + i * msg.angle_increment
-                        if 180 <= angle <= 270 and 1.5 <= r <= 2:
+                        if 180 <= angle <= 270 and 2.2 <= r <= 2.5:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             left_points.append([x, y])
-                        if 280 <= angle <= 360 and 1.5 <= r <= 2:
+                        if 280 <= angle <= 360 and 2.2 <= r <= 2.5:
                             x = r * np.cos(angle)
                             y = r * np.sin(angle)
                             right_points.append([x, y])
                             
                 self.get_logger().info(f"{left_count} points in left tub.")
                 self.get_logger().info(f"{right_count} points in right tub.")
-                
-                if not left_points:
-                    # Our path is clear, continue forward (no VESC publishing)
-                    self.get_logger().info("Object is on the other side, continuing FORWARD: left_lane.")
-                    self.state = 'MOVE_FORWARD'
-                    
-                     
-                elif not right_points:
-                    # Object is directly in front, must change lanes
-                    self.get_logger().info("Object in front, switching to RIGHT LANE.")
-                    # self.publisher_.publish(String(data="CHANGE_LANE_LEFT"))
-                    self.lane = True
-                    # Transition to MANEUVERING state to prevent re-execution during movement
-                    self.state = 'CHANGE_LANE_RIGHT' 
-                else:
+
+                if left_points and right_points:     #if both tubs are full
                     '''
                     Person Detection Code runs here before U-turn.
                     '''
                     
-                    
                     self.get_logger().info("DEAD END detected, initiating U-turn.")
-                    self.get_logger().info("Making U-turn Right.")
+                    self.get_logger().info("Making U-turn right.")
                     # self.publisher_.publish(String(data="U_TURN_LEFT"))
                     # Transition to MANEUVERING state to prevent re-execution during movement
                     self.state = 'U_TURN_RIGHT'
                     
                     #set timer for node to pause taking new data for 5 seconds
-                    #self.timer = self.create_timer(5.0, self.resume_searching_callback)
+                    #self.timer = self.create_timer(5.0, self.resume_searching_callback)  
+                    
+                elif right_points:
+                    self.get_logger().info("Object is on the other side, continuing FORWARD: right_lane.")
+                    self.state = 'MOVE_FORWARD'
+                    
+                else: 
+ 
+                    # Object is directly in front, must change lanes
+                    self.get_logger().info("Object in front, switching to RIGHT LANE.")
+                    # self.publisher_.publish(String(data="CHANGE_LANE_LEFT"))
+                    self.lane = True
+                    # Transition to MANEUVERING state to prevent re-execution during movement
+                    self.state = 'CHANGE_LANE_RIGHT'  
+                    # Our path is clear, continue forward (no VESC publishing) 
     
         
         elif self.state == 'CHANGE_LANE_LEFT':
@@ -284,7 +284,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.01
+                self.twist_cmd.angular.z = 0.1
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
