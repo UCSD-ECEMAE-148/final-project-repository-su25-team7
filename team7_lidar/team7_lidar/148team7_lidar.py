@@ -42,6 +42,7 @@ class LidarObjectDetector(Node):
         
         # State 1: SEARCHING for an object
         if self.state == 'SEARCHING':
+            self.get_logger().info("Started search for Objects.")
             # Check for objects in the current lane
             if self.lane:  # Currently in the right lane
                 for i, r in enumerate(msg.ranges):
@@ -55,6 +56,9 @@ class LidarObjectDetector(Node):
                                 # Publish a message to stop the robot
                                 self.publisher_.publish(String(data="STOP"))
                                 return
+                            
+                self.get_logger().info("No obstacle detected, continuing robot.")
+                
             else:  # Currently in the left lane
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
@@ -67,6 +71,8 @@ class LidarObjectDetector(Node):
                                 # Publish a message to stop the robot
                                 self.publisher_.publish(String(data="STOP"))
                                 return
+                
+                self.get_logger().info("No obstacle detected, continuing robot.")
         
         # State 2: STOPPING to evaluate the situation
         elif self.state == 'STOPPING':
