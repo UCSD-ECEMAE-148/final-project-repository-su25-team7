@@ -40,8 +40,8 @@ class LidarObjectDetector(Node):
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup``
         LEFT_ANGLE_MIN_FILTER = (90.0 / 180.0) * np.pi  # 83 degrees -> 90 degrees
-        LEFT_ANGLE_MAX_FILTER = (104.0 / 180.0) * np.pi  # 110 degrees -> 104 degrees
-        RIGHT_ANGLE_MIN_FILTER = (76.0 / 180.0) * np.pi  # 70 degrees -> 76 degrees
+        LEFT_ANGLE_MAX_FILTER = (92.0 / 180.0) * np.pi  # 110 degrees -> 104 degrees
+        RIGHT_ANGLE_MIN_FILTER = (88.0 / 180.0) * np.pi  # 70 degrees -> 76 degrees
         RIGHT_ANGLE_MAX_FILTER = (90.0 / 180.0) * np.pi  # 97 degrees -> 90 degrees
         
         # State 1: SEARCHING for an object
