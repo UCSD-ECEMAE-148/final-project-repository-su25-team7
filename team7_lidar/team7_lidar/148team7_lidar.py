@@ -217,8 +217,8 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = -1
+                vesc.linear.x = 1.0
+                vesc.angular.z = -1.0
                 # Publish the message
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -230,10 +230,10 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 2):     #activate for 2 seconds 
+            while(int(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = 1
+                vesc.linear.x = 1.0
+                vesc.angular.z = 1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -251,8 +251,8 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = 1
+                vesc.linear.x = 1.0
+                vesc.angular.z = 1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -266,8 +266,8 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = -1
+                vesc.linear.x = 1.0
+                vesc.angular.z = -1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -287,8 +287,8 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 5):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 0
-                vesc.angular.z = 0
+                vesc.linear.x = 0.0
+                vesc.angular.z = 0.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -306,8 +306,8 @@ class LidarObjectDetector(Node):
             
             while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = 1
+                vesc.linear.x = 1.0
+                vesc.angular.z = 1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -321,8 +321,8 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = -1
+                vesc.linear.x = 1.0
+                vesc.angular.z = -1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -336,8 +336,8 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = 1
+                vesc.linear.x = 1.0
+                vesc.angular.z = 1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -355,8 +355,8 @@ class LidarObjectDetector(Node):
                   
             while(seconds_diff < 2):     #activate for 2 seconds (offset to the right for smooth turn)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = -1
+                vesc.linear.x = 1.0
+                vesc.angular.z = -1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -370,8 +370,8 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 6):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = 1
+                vesc.linear.x = 1.0
+                vesc.angular.z = 1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
@@ -385,8 +385,8 @@ class LidarObjectDetector(Node):
             seconds_diff = 0
             while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
-                vesc.linear.x = 1
-                vesc.angular.z = -1
+                vesc.linear.x = 1.0
+                vesc.angular.z = -1.0
                 # Publish the message.
                 self.publisher_.publish(vesc)
                 # Log the published message for verification.
