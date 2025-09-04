@@ -39,6 +39,9 @@ class LidarObjectDetector(Node):
         self.get_logger().info("Starting lidar_callback.")
         
         vesc = Twist()
+        
+        self.get_logger().info("Initializing vesc Twist.")
+        
         real_time = Time()
         
         # Define angular ranges for lane filtering
