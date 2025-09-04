@@ -102,8 +102,8 @@ class LidarObjectDetector(Node):
                             right_points.append([x, y]) 
                             right_count += 1
                             
-                self.get_logger().info("{left_count} points in left tub.")
-                self.get_logger().info("{right_count} points in right tub.")
+                self.get_logger().info(f"{left_count} points in left tub.")
+                self.get_logger().info(f"{right_count} points in right tub.")
                             
                 if not left_points:     #if left lane is empty
                     # Object is directly in front, must change lanes
