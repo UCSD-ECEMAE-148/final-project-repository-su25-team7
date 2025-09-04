@@ -107,7 +107,8 @@ class LidarObjectDetector(Node):
                     
                 elif not right_points:
                     # Our path is clear, continue forward (no VESC publishing)
-                    self.get_logger().info("Object is on the other side, continuing FORWARD.")      
+                    self.get_logger().info("Object is on the other side, continuing FORWARD: right_lane.")
+                    self.state = 'MOVE_FORWARD'      
                     
                 else: 
                     '''
@@ -144,7 +145,10 @@ class LidarObjectDetector(Node):
                             
                 if not left_points:
                     # Our path is clear, continue forward (no VESC publishing)
-                    self.get_logger().info("Object is on the other side, continuing FORWARD.") 
+                    self.get_logger().info("Object is on the other side, continuing FORWARD: left_lane.")
+                    self.state = 'MOVE_FORWARD'
+                    
+                     
                 elif not right_points:
                     # Object is directly in front, must change lanes
                     self.get_logger().info("Object in front, switching to RIGHT LANE.")
@@ -213,7 +217,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = 0.5
+                self.twist_cmd.angular.z = 0.6
                 # Publish the message.
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -260,6 +264,27 @@ class LidarObjectDetector(Node):
                 seconds_diff = time_difference.nanoseconds / 1e9
                 
             self.state = 'STOPPING'
+        
+        elif self.state == 'MOVE_FORWARD':
+            start_time = self.get_clock().now()
+            end_time = self.get_clock().now()
+            time_difference = end_time - start_time
+            seconds_diff = time_difference.nanoseconds / 1e9
+            
+            while(seconds_diff < 2):     #activate for 2 seconds 
+                # publish -> angular.z 90 degrees right
+                self.twist_cmd.linear.x = 0.2
+                self.twist_cmd.angular.z = 0.01
+                # Publish the message.
+                self.twist_publisher.publish(self.twist_cmd)
+                # Log the published message for verification.
+                #self.get_logger().info(f'Publishing: Linear.x="{self.twist_cmd.linear.x:.2f}" Angular.z="{self.twist_cmd.angular.z:.2f}"')
+            
+                end_time = self.get_clock().now()
+                time_difference = end_time - start_time
+                seconds_diff = time_difference.nanoseconds / 1e9
+                
+            self.state = 'SEARCHING'
         
         elif self.state == 'U_TURN_LEFT':
             start_time = self.get_clock().now()
