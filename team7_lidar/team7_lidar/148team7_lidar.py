@@ -99,7 +99,7 @@ class LidarObjectDetector(Node):
             for i, r in enumerate(msg.ranges):
                 if np.isfinite(r):
                     angle = msg.angle_min + i * msg.angle_increment
-                    if angle_min <= angle <= angle_max and r <= 2.2:
+                    if angle_min <= angle <= angle_max and r<=2.2:
                         x = r * np.cos(angle)
                         y = r * np.sin(angle)
                         points.append([x, y])
@@ -111,7 +111,7 @@ class LidarObjectDetector(Node):
                 return
 
             points = np.array(points)
-            clustering = DBSCAN(eps=0.035, min_samples=10).fit(points)
+            clustering = DBSCAN(eps=0.035, min_samples=5).fit(points)
             labels = clustering.labels_
 
             objects = []
