@@ -82,8 +82,8 @@ class LidarObjectDetector(Node):
             if self.lane: #if currently in right lane
                 angle_min = RIGHT_ANGLE_MIN_FILTER
                 angle_max = RIGHT_ANGLE_MAX_FILTER
-                angle_middle_left = angle_min + 9
-                angle_middle_right = angle_max - 9
+                angle_middle_left = angle_min + 11
+                angle_middle_right = angle_max - 11
                 
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
@@ -130,8 +130,8 @@ class LidarObjectDetector(Node):
             else: #if currently in left lane
                 angle_min = LEFT_ANGLE_MIN_FILTER
                 angle_max = LEFT_ANGLE_MAX_FILTER
-                angle_middle_left = angle_min + 9
-                angle_middle_right = angle_max - 9
+                angle_middle_left = angle_min + 11
+                angle_middle_right = angle_max - 11
                 
                 for i, r in enumerate(msg.ranges):
                     if np.isfinite(r):
