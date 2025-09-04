@@ -18,7 +18,7 @@ class LidarObjectDetector(Node):
             self.lidar_callback,
             10)
 
-        self.twist_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.twist_publisher = self.create_publisher(Twist, '/cmd_vel/teleop', 10)
         
         self.get_logger().info("Lidar Object Detector Node Started")
 
@@ -37,6 +37,10 @@ class LidarObjectDetector(Node):
         self.state = 'SEARCHING'
 
     def lidar_callback(self, msg: LaserScan):
+        self.twist_cmd.linear.x = 0.0
+        self.twist_cmd.angular.z = 0.0
+        # Publish the message.
+        self.twist_publisher.publish(self.twist_cmd)
         # Define angular ranges for lane filtering
         # Assuming these are defined relative to the sensor's physical setup
         # LEFT_ANGLE_MIN_FILTER = (260.0 / 180.0) * np.pi  # 260 degrees
