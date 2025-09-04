@@ -150,8 +150,9 @@ class LidarObjectDetector(Node):
                             y = r * np.sin(angle)
                             right_points.append([x, y])
                             
-                    self.get_logger().info(f"{left_count} points in left tub.")
-                    self.get_logger().info(f"{right_count} points in right tub.")
+                self.get_logger().info(f"{left_count} points in left tub.")
+                self.get_logger().info(f"{right_count} points in right tub.")
+                
                 if not left_points:
                     # Our path is clear, continue forward (no VESC publishing)
                     self.get_logger().info("Object is on the other side, continuing FORWARD: left_lane.")
