@@ -235,7 +235,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 2):     #activate for 2 seconds 
+            while(seconds_diff < 1):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = 0.5
@@ -271,7 +271,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 2):     #activate for 2 seconds 
+            while(seconds_diff < 1):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -0.3
@@ -328,7 +328,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 5):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 8):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -1.0
@@ -379,7 +379,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 5):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 8):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = 1.0
