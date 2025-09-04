@@ -230,7 +230,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(int(seconds_diff < 2):     #activate for 2 seconds 
+            while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 vesc.linear.x = 1.0
                 vesc.angular.z = 1.0
