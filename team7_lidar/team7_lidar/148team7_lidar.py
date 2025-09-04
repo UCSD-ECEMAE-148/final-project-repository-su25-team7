@@ -223,7 +223,7 @@ class LidarObjectDetector(Node):
             while(seconds_diff < 2):     #activate for 2 seconds 
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
-                self.twist_cmd.angular.z = -0.4
+                self.twist_cmd.angular.z = -0.3
                 # Publish the message
                 self.twist_publisher.publish(self.twist_cmd)
                 # Log the published message for verification.
@@ -328,7 +328,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 3):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 5):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -1.0
@@ -343,7 +343,7 @@ class LidarObjectDetector(Node):
         
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
+            while(seconds_diff < 1):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = 0.5
@@ -379,7 +379,7 @@ class LidarObjectDetector(Node):
 
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 3):     #activate for 6 seconds (make the big turn left)
+            while(seconds_diff < 5):     #activate for 6 seconds (make the big turn left)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = 1.0
@@ -394,7 +394,7 @@ class LidarObjectDetector(Node):
         
             start_time = self.get_clock().now()
             seconds_diff = 0
-            while(seconds_diff < 2):     #activate for 6 seconds (turn right to straighten the robot)
+            while(seconds_diff < 1):     #activate for 6 seconds (turn right to straighten the robot)
                 # publish -> angular.z 90 degrees right
                 self.twist_cmd.linear.x = 0.2
                 self.twist_cmd.angular.z = -0.5
