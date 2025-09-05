@@ -11,7 +11,7 @@ class PeopleDetectorNode(Node):
         super().__init__('people_detector_node')
 
         # Publisher for detection summary
-        self.pub = self.create_publisher(Twist, 'cmd_val', 10)
+        self.pub = self.create_publisher(Twist, 'cmd_vel', 10)
         self.twist_cmd = Twist()
 
         # Init Roboflow OAK model (Roboflow people detection model ID/version)
