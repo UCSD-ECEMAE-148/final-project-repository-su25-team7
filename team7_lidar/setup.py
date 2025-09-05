@@ -23,7 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'team7_lidar_executable=team7_lidar.148team7_lidar:main'
+            'team7_lidar_executable=team7_lidar.148team7_lidar:main',
+            'priority_node_executable=team7_lidar.priority_node:main',
         ],
     },
 )
