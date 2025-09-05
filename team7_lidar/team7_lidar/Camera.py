@@ -16,10 +16,10 @@ class PeopleDetectorNode(Node):
 
         # Init Roboflow OAK model (Roboflow people detection model ID/version)
         self.rf = RoboflowOak(
-            model="people-detection-general",    # People detection model
+            model="shoes-detection-nqdhn",    # People detection model
             confidence=0.4,                   # filter weak detections
             overlap=0.5,
-            version="5",                      
+            version="3",                      
             api_key="qS4FEZsIHOVMnr0XfFoP",
             rgb=True,
             depth=True,
@@ -41,7 +41,7 @@ class PeopleDetectorNode(Node):
         predictions = result["predictions"]
 
         # Filter only people
-        people = [p for p in predictions if p.class_name == "person"]
+        people = [p for p in predictions if p.class_name == "LowTop"]
         
         while len(people) > 0:
             
