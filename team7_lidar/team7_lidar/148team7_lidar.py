@@ -26,7 +26,7 @@ class LidarObjectDetector(Node):
         self.twist_cmd = Twist()
 
         # Define a state machine for the robot's behavior
-        # States: 
+        # States: lol
         # 'SEARCHING', -> search for obstacle in 2m distance
         # 'STOPPING', -> after finding obstacle, determine what action to take
         # 'CHANGE_LANE_LEFT', -> publish to vesc to make robot change to left lane
