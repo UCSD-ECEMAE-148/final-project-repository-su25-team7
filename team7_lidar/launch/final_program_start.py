@@ -9,4 +9,9 @@ def generate_launch_description():
             executable='team7_lidar_executable',
             output='screen',
             emulate_tty=True),
+        Node(
+            package='team7_lidar',
+            executable='priority_node_executable',
+            output='screen',
+            emulate_tty=True),
     ])
