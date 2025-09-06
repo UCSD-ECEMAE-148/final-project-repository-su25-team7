@@ -83,15 +83,15 @@ The robot functions using three main nodes: the LiDAR Detection node, the Lane D
 
 ### Demo Videos and Other Resources
 <div align="center">
-    [<img src="images\robot_switching_lanes.mov" width="50%">](robot switching lanes)
+  
+  * [Demo Video: Robot Switching Lanes](https://youtube.com/shorts/gQptoSoQoL8?feature=share)
+  
+  * [Demo Video: Robot Making U-Turn](https://youtube.com/shorts/COwc9C_MVr0?feature=share)
+  
+  * [Final Project Proposal](https://docs.google.com/presentation/d/1GVsvTshFEmerzxDG04KnkVLLrKt4Ls0ByvFJtbYKdKk/edit?slide=id.p#slide=id.p)
+  * [Final Project Presentation](https://docs.google.com/presentation/d/1y8KrdfWulMwEmKlMkTtelip-Z3ugiJRzll6btDa6zmI/edit?slide=id.g2930274da63_0_126#slide=id.g2930274da63_0_126)
+    
 </div>
-<div align="center">
-    [<img src="images\robot_making_uturn.mov" width="50"%>](robot making U-turn)
-</div>
-
-* [Final Project Proposal](https://docs.google.com/presentation/d/1GVsvTshFEmerzxDG04KnkVLLrKt4Ls0ByvFJtbYKdKk/edit?slide=id.p#slide=id.p)
-* [Final Project Presentation](https://docs.google.com/presentation/d/1y8KrdfWulMwEmKlMkTtelip-Z3ugiJRzll6btDa6zmI/edit?slide=id.g2930274da63_0_126#slide=id.g2930274da63_0_126)
-
 
 ## Early Quarter
 <div align="center">
